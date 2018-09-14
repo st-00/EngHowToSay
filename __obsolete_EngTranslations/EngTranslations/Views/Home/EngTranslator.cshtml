@@ -1,0 +1,75 @@
+﻿@model List<EngTranslations.Models.ChaperItemJoined>
+@{
+    ViewBag.Title = "English translations";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<style>
+    /*.table-items {
+        table-layout:fixed;
+    width : 50px;
+    border : 1px solid #000;
+    word-wrap : break-word;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -o-hyphens: auto;
+        hyphens: auto;
+    }*/
+
+    .td-item,.td-text {
+        width: 250px;
+        text-align: justify;
+
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -o-hyphens: auto;
+        hyphens: auto;
+    }
+
+    /*p {
+        width: 200px;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+        border: 1px solid red;
+        /*text-align: justify;*/
+    }*/
+
+
+    .td-text {
+        font-size: 11pt;
+    }
+
+    .td-translation {
+        font-size: 9pt;
+        color: gray;
+    }
+</style>
+
+<table class="table-items">
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <h2>@item.Number</h2>
+                </td>
+            </tr>
+        </tbody>
+        foreach (var item2 in item.TranslationPairsForDisplay)
+        {
+        <tr>
+            <td lang ="ru-RU" class="td-item td-text">@item2.Item1</td>
+        </tr>
+        <tr>
+            <td class="td-item td-translation">@item2.Item2</td>
+        </tr>
+        }
+    }
+
+</table>
