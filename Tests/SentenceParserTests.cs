@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EngHowToSay;
+using OpenNLP.Tools.SentenceDetect;
 using Xunit;
 
 namespace Tests
@@ -53,7 +54,22 @@ namespace Tests
 
         public string[] GetSentences(string sentences)
         {
-            return sentences.Split(SentenceSeparators, StringSplitOptions.RemoveEmptyEntries);
+            //return sentences.Split(SentenceSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+            // sentence min length?
+
+            //for (var index = 0; index < sentences.Length; index++)
+            //{
+            //    var character = sentences[index];
+
+            //    if (SentenceSeparators.Contains(character))
+            //    {
+
+            //    }
+
+            //}
+
+            return null;
         }
 
 
