@@ -1,14 +1,10 @@
-﻿namespace EngHowToSay
+﻿using System.Collections.Generic;
+
+namespace EngHowToSay
 {
     public class ChapterModel
     {
-        public string Title { get; set; }
-        public string Text { get; set; }
-
-        public ChapterModel(string title, string text)
-        {
-            Title = TextCleaner.Clean(title);
-            Text = TextCleaner.Clean(text);
-        }
+        public string ChapterNo { get; set; }
+        public List<SentenceModel> Sentences { get; set; }
     }
 }

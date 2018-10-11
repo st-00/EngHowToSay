@@ -50,37 +50,37 @@ Hardly had I seen her when I lost the gift of speech.
 ";
     }
 
-    public class ChapterParserTests
+    public class SourceTextParserTests
     {
-        readonly ChapterParser _chapterParser = new ChapterParser();
+        readonly SourceTextParser _sourceTextParser = new SourceTextParser();
 
         [Fact]
         public void Parse_Chapters()
         {
-            var chapters = _chapterParser.GetChapters(ChapterTestData.ChaptersWithText);
+            var chapters = _sourceTextParser.GetChapters(ChapterTestData.ChaptersWithText);
 
             Assert.Equal(14, chapters.Count);
-            Assert.Equal(0, chapters.Count(i => i.StartsWith(ChapterParser.ChapterNumberPrefix)));
+            Assert.Equal(0, chapters.Count(i => i.StartsWith(SourceTextParser.ChapterNumberPrefix)));
         }
 
         [Fact]
         public void Parse_Title_And_Text()
         {
-            var chapters = _chapterParser.GetChapters2(ChapterTestData.ChaptersWithText);
+            var chapters = _sourceTextParser.GetChapters2(ChapterTestData.ChaptersWithText);
 
             Assert.Equal(14, chapters.Count);
         }
     }
 
-    public class ChapterParser
+    public class SourceTextParser
     {
         public const string ChapterNumberPrefix = "#";
 
-        public List<ChapterModel> GetChapters2(string chaptersWithText)
+        public List<SourceTextModel> GetChapters2(string chaptersWithText)
         {
             List<string> chaptersRaw = GetChapters(chaptersWithText);
 
-            var result = new List<ChapterModel>(chaptersRaw.Count);
+            var result = new List<SourceTextModel>(chaptersRaw.Count);
 
             foreach (var item in chaptersRaw)
             {
@@ -91,7 +91,7 @@ Hardly had I seen her when I lost the gift of speech.
                 var chapterNo = item.Substring(0, indexEndChapterNo);
                 var text = item.Substring(indexEndChapterNo + 1);
 
-                result.Add(new ChapterModel(chapterNo, text));
+                result.Add(new SourceTextModel(chapterNo, text));
             }
 
             return result;

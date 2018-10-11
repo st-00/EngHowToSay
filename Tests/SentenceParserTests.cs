@@ -41,7 +41,7 @@ namespace Tests
             foreach (var item in sentences)
             {
                 Assert.False(string.IsNullOrWhiteSpace(item.Sentence));
-                Assert.False(string.IsNullOrWhiteSpace(item.Translation));
+                Assert.False(string.IsNullOrWhiteSpace(item.SentenceTranslation));
             }
         }
     }
@@ -105,7 +105,7 @@ namespace Tests
             var result = new List<SentenceModel>();
             for (int i = 0; i < a1.Length; i++)
             {
-                result.Add(new SentenceModel() {Sentence = a1[i], Translation = a2[i]});
+                result.Add(new SentenceModel() {Sentence = a1[i], SentenceTranslation = a2[i]});
             }
 
             return result;
