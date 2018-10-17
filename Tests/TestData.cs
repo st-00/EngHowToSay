@@ -5,7 +5,7 @@ using EngHowToSay;
 
 namespace Tests
 {
-    public static class TestData
+    public static partial class TestData
     {
 
         public const string TextWithOddCharacters = @"  Я 
