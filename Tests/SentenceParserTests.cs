@@ -49,7 +49,7 @@ namespace Tests
     public class SentenceParser
     {
         public readonly string[] SentenceSeparators = {".", "?", "!"};
-        public readonly string SpecialSeparator3Forms = "/";
+        public readonly string SpecialSeparator3Forms = " /";
 
 
         public string[] GetSentences(string textWithSentences)

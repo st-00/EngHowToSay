@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using EngHowToSay;
 using Xunit;
 
 namespace Tests
@@ -12,6 +15,30 @@ namespace Tests
     public class DisplayChapterServiceTests
     {
         private readonly DisplayChapterService _service = new DisplayChapterService();
+        private readonly ChapterService _chapterService = new ChapterService(new SourceTextParser(), new SentenceParser());
+
+        [Fact]
+        public void Merge_Chapter_No_Merge()
+        {
+            var chapters = _chapterService.GetChapters(TestData.Topic99, TestData.Topic99Eng);
+            var sentences = chapters[0].Sentences;
+
+            var sentencesToDisplay = _service.GetSentencesToDisplay(sentences);
+
+            Assert.Equal(sentencesToDisplay.Count, sentences.Count);
+        }
+
+        [Fact]
+        public void Merge_Chapter()
+        {
+            var chapters = _chapterService.GetChapters(TestData.Topic1702, TestData.Topic1702Eng);
+            var sentences = chapters[0].Sentences;
+
+            var sentencesToDisplay = _service.GetSentencesToDisplay(sentences);
+
+            Assert.NotEqual(sentencesToDisplay.Count, sentences.Count);
+        }
+
 
         [Fact]
         public void Check_If_Two_Sentences_Merged()
@@ -50,6 +77,11 @@ namespace Tests
             if (current.Length + next.Length > DesiredMaxNumberOfChars) return false;
 
             return true;
+        }
+
+        public List<SentenceModel> GetSentencesToDisplay(List<SentenceModel> sentences)
+        {
+            return sentences.ToList();
         }
     }
 }
