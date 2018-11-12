@@ -37,6 +37,12 @@ namespace Tests
             var sentencesToDisplay = _service.GetSentencesToDisplay(sentences);
 
             Assert.NotEqual(sentencesToDisplay.Count, sentences.Count);
+
+            foreach (var item in sentencesToDisplay)
+            {
+                Assert.True(item.Sentence.Length <= DisplayChapterService.DesiredMaxNumberOfChars);
+                Assert.True(item.SentenceTranslation.Length <= DisplayChapterService.DesiredMaxNumberOfChars);
+            }
         }
 
 
@@ -50,7 +56,7 @@ namespace Tests
         [Fact]
         public void Check_Boundary_Conditions()
         {
-            Assert.ThrowsAny<ArgumentException>(() => _service.CheckMergeRequired(null, null));
+            Assert.ThrowsAny<ArgumentException>(() => _service.CheckMergeRequired((string)null, null));
             Assert.False(_service.CheckMergeRequired(TestData.Sentence60Chars, null));
         }
 
@@ -66,6 +72,7 @@ namespace Tests
     {
         public const int DesiredMaxNumberOfChars = 150;
         public const string SpecialCharacters = " /";
+        public const string Space = " ";
 
         public bool CheckMergeRequired(string current, string next)
         {
@@ -74,14 +81,61 @@ namespace Tests
 
             if (current.Contains(SpecialCharacters) || next.Contains(SpecialCharacters)) return false;
 
-            if (current.Length + next.Length > DesiredMaxNumberOfChars) return false;
+            if (current.Length + Space.Length + next.Length > DesiredMaxNumberOfChars) return false;
 
             return true;
         }
 
+        public bool CheckMergeRequired(SentenceModel current, SentenceModel next)
+        {
+            return CheckMergeRequired(current.Sentence, next.Sentence) && CheckMergeRequired(current.SentenceTranslation, next.SentenceTranslation);
+        }
+
         public List<SentenceModel> GetSentencesToDisplay(List<SentenceModel> sentences)
         {
-            return sentences.ToList();
+            if (sentences == null) return null;
+            if (sentences.Count < 2) return sentences.ToList();
+
+            var mergedSentences = new List<SentenceModel> ();
+
+            foreach (var sentence in sentences)
+            {
+                var mergedSentence = GetMergedSentence(mergedSentences.LastOrDefault(), sentence);
+
+                if (!mergedSentences.Contains(mergedSentence))
+                {
+                    mergedSentences.Add(mergedSentence);
+                }
+            }
+
+            return mergedSentences;
+        }
+
+
+        private SentenceModel GetMergedSentence(SentenceModel mergedSentence, SentenceModel sentence)
+        {
+            if (mergedSentence == null)
+            {
+                return CopySentenceModel(sentence);
+            }
+
+            if (CheckMergeRequired(mergedSentence, sentence))
+            {
+                mergedSentence.Sentence += Space + sentence.Sentence;
+                mergedSentence.SentenceTranslation += Space + sentence.SentenceTranslation;
+                return mergedSentence;
+            }
+
+            return CopySentenceModel(sentence);
+        }
+
+        private static SentenceModel CopySentenceModel(SentenceModel sentence)
+        {
+            return new SentenceModel
+            {
+                Sentence = sentence.Sentence,
+                SentenceTranslation = sentence.SentenceTranslation
+            };
         }
     }
 }
