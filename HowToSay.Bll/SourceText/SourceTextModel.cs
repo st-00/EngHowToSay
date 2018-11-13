@@ -1,4 +1,6 @@
-﻿namespace EngHowToSay
+﻿using HowToSay.Infrastructure;
+
+namespace EngHowToSay
 {
     public class SourceTextModel
     {

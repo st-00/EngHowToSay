@@ -3,21 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EngHowToSay;
-using Xunit;
+using HowToSay.Bll.Sentence;
+using HowToSay.Bll.SourceText;
 
-namespace Tests
+namespace HowToSay.Bll.Chapter
 {
-    public class ChapterServiceTests
-    {
-        private readonly ChapterService _chapterService = new ChapterService(new SourceTextParser(), new SentenceParser());
-
-        [Fact]
-        public void Get_Chapters()
-        {
-            var chapters = _chapterService.GetChapters(TestData.Topic99, TestData.Topic99Eng);
-        }
-    }
-
     public class ChapterService
     {
         private readonly SourceTextParser _sourceTextParser;
@@ -40,7 +30,7 @@ namespace Tests
             {
                 var modelTranslation = chaptersTranslations.Single(i => string.Equals(i.Title, model.Title, StringComparison.CurrentCultureIgnoreCase));
 
-                var chapterModel = new ChapterModel {ChapterNo = model.Title};
+                var chapterModel = new ChapterModel { ChapterNo = model.Title };
                 chapterModel.Sentences = _sentenceParser.GetSentences(model.Text, modelTranslation.Text);
 
                 result.Add(chapterModel);

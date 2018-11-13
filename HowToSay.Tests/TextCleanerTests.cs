@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using EngHowToSay;
+using HowToSay.Infrastructure;
 using Xunit;
 
 namespace Tests
