@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EngHowToSay;
+using HowToSay.Bll;
 using HowToSay.Bll.Sentence;
 using Xunit;
 
@@ -7,7 +8,7 @@ namespace Tests
 {
     public class SentenceParserTests
     {
-        readonly SentenceParser _sentenceParser = new SentenceParser();
+        readonly SentenceParser _sentenceParser = ServiceLocator.GetSentenceParser();
 
         [Fact]
         public void Parse_Sentences()

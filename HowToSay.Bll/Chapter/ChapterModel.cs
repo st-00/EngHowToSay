@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using HowToSay.Bll.Sentence;
 
-namespace EngHowToSay
+namespace HowToSay.Bll.Chapter
 {
     public class ChapterModel
     {

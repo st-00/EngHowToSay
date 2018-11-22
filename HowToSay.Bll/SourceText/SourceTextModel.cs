@@ -1,6 +1,6 @@
 ﻿using HowToSay.Infrastructure;
 
-namespace EngHowToSay
+namespace HowToSay.Bll.SourceText
 {
     public class SourceTextModel
     {

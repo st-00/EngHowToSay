@@ -1,13 +1,13 @@
-﻿using EngHowToSay;
+﻿using HowToSay.Bll.Sentence;
 
-namespace Tests
+namespace HowToSay.Bll.ChapterDisplay
 {
-    public class ChapterDisplayModel
+    public class ChapterDisplayTextModel
     {
         public string Text { get; set; }
         public string TextTranslation { get; set; }
 
-        public ChapterDisplayModel(SentenceModel sentence)
+        public ChapterDisplayTextModel(SentenceModel sentence)
         {
             Text = sentence.Sentence;
             TextTranslation = sentence.SentenceTranslation;

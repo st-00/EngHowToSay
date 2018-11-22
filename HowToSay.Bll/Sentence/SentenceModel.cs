@@ -1,4 +1,4 @@
-﻿namespace EngHowToSay
+﻿namespace HowToSay.Bll.Sentence
 {
     public class SentenceModel
     {

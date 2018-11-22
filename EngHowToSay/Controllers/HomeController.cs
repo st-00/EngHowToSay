@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using EngHowToSay.Models;
+using HowToSay.Bll;
 
 namespace EngHowToSay.Controllers
 {
@@ -12,7 +10,18 @@ namespace EngHowToSay.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var textChapters = SourceTextResource.ResourceManager.GetString("Chapters", CultureInfo.InvariantCulture);
+            var textChaptersTranslation = SourceTextResource.ResourceManager.GetString("Chapters", new CultureInfo("en-US"));
+
+            var chapterService = ServiceLocator.GetChapterService();
+            var chapterDisplayService = ServiceLocator.GetChapterDisplayService();
+
+            var chapters = chapterService.GetChapters(textChapters, textChaptersTranslation);
+            var textGroups = chapterDisplayService.GetChaptersToDisplay(chapters);
+
+            var model = new IndexViewModel {TextGroups = textGroups};
+
+            return View(model);
         }
 
         public IActionResult About()
@@ -37,7 +46,7 @@ namespace EngHowToSay.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }

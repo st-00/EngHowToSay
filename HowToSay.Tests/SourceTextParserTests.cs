@@ -51,7 +51,7 @@ Hardly had I seen her when I lost the gift of speech.
 
     public class SourceTextParserTests
     {
-        readonly SourceTextParser _sourceTextParser = new SourceTextParser();
+        readonly SourceTextParser _sourceTextParser = ServiceLocator.GetSourceTextParser();
 
         [Fact]
         public void Parse_Chapters()

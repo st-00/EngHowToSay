@@ -9,7 +9,7 @@ namespace Tests
 {
     public class ChapterServiceTests
     {
-        private readonly ChapterService _chapterService = new ChapterService(new SourceTextParser(), new SentenceParser());
+        private readonly ChapterService _chapterService = ServiceLocator.GetChapterService();
 
         [Fact]
         public void Get_Chapters()

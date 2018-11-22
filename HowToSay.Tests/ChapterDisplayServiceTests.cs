@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using HowToSay.Bll;
 using HowToSay.Bll.Chapter;
-using HowToSay.Bll.Sentence;
-using HowToSay.Bll.SourceText;
+using HowToSay.Bll.ChapterDisplay;
 using Xunit;
 
 namespace Tests
@@ -14,8 +15,8 @@ namespace Tests
 
     public class ChapterDisplayServiceTests
     {
-        private readonly ChapterDisplayService _service = new ChapterDisplayService();
-        private readonly ChapterService _chapterService = new ChapterService(new SourceTextParser(), new SentenceParser());
+        private readonly ChapterDisplayService _service = ServiceLocator.GetChapterDisplayService();
+        private readonly ChapterService _chapterService = ServiceLocator.GetChapterService();
 
         [Fact]
         public void Merge_Chapter_No_Merge()
@@ -45,6 +46,14 @@ namespace Tests
             }
         }
 
+        [Fact]
+        public void Merge_Chapters()
+        {
+            var chapters = _chapterService.GetChapters(TestData.Topic1702, TestData.Topic1702Eng);
+            List<ChapterDisplayGroupModel> chaptersToDisplay = _service.GetChaptersToDisplay(chapters);
+
+            Assert.Equal(chaptersToDisplay.Count, chapters.Count);
+        }
 
         [Fact]
         public void Check_If_Two_Sentences_Merged()
